@@ -4,21 +4,21 @@ from flask_cors import CORS
 import requests
 
 app = Flask(__name__)
-app.config['MONGO_URI'] = "mongodb://localhost/pythonUsers"
+app.config['MONGO_URI'] = "mongodb://localhost:27017/pythonUsers"
 mongo = PyMongo(app)
 
 CORS(app)
 
-@app.route('/users', methods=['POST'])
-def createUser():
-    id = mongo.db.users.insert({
-        'nombre': request.json['nombre'],
-        'correo': request.json['correo'],
-        'foto': request.json['foto'],
-        'mascotas': request.json["mascotas"]
+@app.route('/users', methods=["POST"])
+def postUser():
+    mongo.db.users.insert_one({
+        'nombre':request.json['nombre'],
+        'correo':request.json['correo'],
+        'foto':request.json['foto'],
+        'mascotas':request.json['mascotas'],
+        
     })
-    return jsonify(str(ObjectId(id)))
-
+    return 'received'
 
 @app.route('/users', methods=["GET"])
 def getUsers():
@@ -68,15 +68,16 @@ def updateUser(id):
     return "Actualizado"
 
 
-@app.route('/ducks', methods=['POST'])
+@app.route('/ducks', methods=["POST"])
 def createDuck():
-    id = mongo.db.ducks.insert({
-        'nombre': request.json['nombre'],
-        'dueño': request.json['dueño'],
-        'año': request.json['año'],
-        'foto': request.json["foto"]
+    mongo.db.ducks.insert_one({
+        'nombre':request.json['nombre'],
+        'año':request.json['año'],
+        'dueño':request.json['dueño'],
+        'foto':request.json['foto'],
+        
     })
-    return jsonify(str(ObjectId(id)))
+    return 'received'
 
 
 @app.route('/ducks', methods=["GET"])
