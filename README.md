@@ -2,14 +2,14 @@
 
 ## Para el proyecto (BETA) utilizamos:
 - [Python 3.10.0](https://www.python.org/downloads/release/python-3100/)
-- [MongoDB](https://www.mongodb.com/es)
-- [MongoDB Compass](https://www.mongodb.com/products/compass)(Para ver resultados de manera comoda `opcional`)
 - [Postman](https://www.postman.com/) (Para realizar peticiones a las API `opcional`)
 - [NodeJS](https://nodejs.org/es/) **LTS** (Si te instalaste la Actual desinstala esa version e instala la LTS **perdooon la actual da muchos fallos**)
+- [Redis](https://github.com/microsoftarchive/redis/releases) **[VER EL VIDEO : INSTALACION](https://youtu.be/188Fy-oCw4w)**
 
 ## Documentacion
 - [React](https://create-react-app.dev/)
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/)
+- [Redis](https://github.com/redis/redis-py)
 
 ## Instrucciones
 ## Haz esto si ya instalaste todo
@@ -19,27 +19,9 @@ pip install -r requirements.txt
 ```
 
 - Utilizar el siguiente comando cuando hayas hecho lo anterior
-```
-virtualenv venv
-```
-- Al momento de nosotros ejecutar el comando nos creara varias carpetas en el directorio
-
-!['Holi'](Screen2.png)
-
-- Es momento de abrir otra consola nos dirigimos a la carpeta .\venv\Scripts mediante cmd (cd .\venv\Scripts), luego de esto introduciremos 
-```
-.\activate.bat
-```
-Al momento de nosotros hacer eso a lado izquierdo de la ruta nos debe aparecer (venv) como se ve en la imagen
-
-!['Holi'](Screen1.png)
-
-- Abriremos otra consola
-Escribiremos `mongo`
-
-**En dado caso que aparezca que no se reconoce el comando ver el [siguiente video](https://youtu.be/2vjeCOiLc5g)** (Cerrar consola, abrir una nueva y escribir `mongo`)
 
 En el siguiente paso haremos lo siguiente:
+
 !['Holi'](Screen3.png)
 
 Tomaremos la carpeta `\src` (dentro de la carpeta `\frontend`) y el archivo `.env` (tambien de la carpeta `\frontend`) y los guardaremos en una carpeta aparte (esta carpeta sera temporal)
@@ -68,6 +50,4 @@ y luego:
 npm start
 ```
 Esto lo que hara es que nos abrira el servidor de node en localhost:3000 y nos debe aparecer la ventana principal del CRUD
-
-
 
