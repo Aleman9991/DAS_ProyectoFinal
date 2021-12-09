@@ -63,7 +63,6 @@ export const Users = () => {
     setfoto(data);
   };
 
-  
 
   useEffect(() => {
     getUsers();
