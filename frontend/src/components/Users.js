@@ -3,36 +3,37 @@ const API = process.env.REACT_APP_API;
 
 export const Users = () => {
   const [nombre, setnombre] = useState("");
-  const [correo, setcorreo] = useState("");
+  const [apellido, setapellido] = useState("");
   const [foto, setfoto] = useState("");
   const [mascotas, setMascotas] = useState("");
   const [editing, setEditing] = useState(false);
   const [id, setId] = useState("");
   const [users, setUsers] = useState([]);
+  const [generate, setGenerate] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!editing) {
+    if (!editing && !generate) {
       const res = await fetch(`${API}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nombre: nombre,
-          correo: correo,
+          apellido: apellido,
           foto: foto,
           mascotas: mascotas,
         }),
       });
       const data = await res.json();
       console.log(data);
-    } else {
+    } else if (editing && !generate) {
       await fetch(`${API}/users/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nombre: nombre,
-          correo: correo,
+          apellido: apellido,
           foto: foto,
           mascotas: mascotas,
         }),
@@ -40,12 +41,20 @@ export const Users = () => {
 
       setEditing(false);
       setId("");
+    } else if (generate) {
+      const res = await fetch(`${API}/generateUser`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      console.log(data);
+      setGenerate(false);
     }
 
     await getUsers();
     await getFoto();
 
-    setcorreo("");
+    setapellido("");
     setnombre("");
     setfoto("");
     setMascotas("");
@@ -63,6 +72,18 @@ export const Users = () => {
     setfoto(data);
   };
 
+  const generateUser = async () => {
+    const res = await fetch(`${API}/generateUser`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nombre: nombre,
+        apellido: apellido,
+        foto: foto,
+        mascotas: mascotas,
+      }),
+    });
+  };
 
   useEffect(() => {
     getUsers();
@@ -80,6 +101,10 @@ export const Users = () => {
     }
   };
 
+  const genUser = async () => {
+    setGenerate(true);
+  };
+
   const editUser = async (id) => {
     const res = await fetch(`${API}/user/${id}`);
     const data = await res.json();
@@ -89,13 +114,13 @@ export const Users = () => {
 
     setnombre(data.nombre);
     setfoto(data.foto);
-    setcorreo(data.correo);
+    setapellido(data.apellido);
     setMascotas(data.mascotas);
   };
 
   return (
     <div className="row">
-      <div className="col-md-4">
+      <div className="col-md-4" align="center">
         <img width="200px" height="200px" alt="" src={foto} />
         <form onSubmit={handleSubmit} className="card card-body">
           <div class="form-group">
@@ -113,10 +138,10 @@ export const Users = () => {
             <input
               type="text"
               class="form-control"
-              onChange={(e) => setcorreo(e.target.value)}
-              value={correo}
+              onChange={(e) => setapellido(e.target.value)}
+              value={apellido}
               className="form-control"
-              placeholder="correo"
+              placeholder="apellido"
             />
           </div>
           <div class="form-group">
@@ -129,9 +154,19 @@ export const Users = () => {
               placeholder="Mascotas"
             />
           </div>
-          <button className="btn btn-primary btn-block form-control">
-            {editing ? "Update" : "Create"}
-          </button>
+          <div class="form-group">
+            <button className="btn btn-primary btn-block form-control">
+              {editing ? "Update" : "Create"}
+            </button>
+          </div>
+          <div class="form-group">
+            <button
+              className="btn btn-danger btn-block form-control"
+              onClick={(e) => genUser()}
+            >
+              GENERATE
+            </button>
+          </div>
         </form>
       </div>
       <div className="col-md-8">
@@ -140,7 +175,7 @@ export const Users = () => {
             <tr>
               <th>Fotografia</th>
               <th>Nombre</th>
-              <th>Correo</th>
+              <th>apellido</th>
               <th>Animales</th>
               <th>Funciones</th>
             </tr>
@@ -152,7 +187,7 @@ export const Users = () => {
                   <img src={user.foto} width="100px" height="100px" alt="" />
                 </td>
                 <td>{user.nombre}</td>
-                <td>{user.correo}</td>
+                <td>{user.apellido}</td>
                 <td className="text-center">
                   <button>
                     <img
