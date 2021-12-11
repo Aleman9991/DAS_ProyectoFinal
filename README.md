@@ -64,3 +64,5 @@ La pestaña `Patitos` tiene una vista asi:
 !['Holi'](Screen5.png)
 
 Y pues creo que es todo, puedes utilizar `Postman` para realizar las peticiones al servidor (GET, PUT, DELETE, POST) (todas las rutas estan en `backend.py`)
+
+**NOTA: VERIFICAR LAS CONSOLAS DEL SCRIPT BACKEND Y NODE PARA VER ERRORES**
