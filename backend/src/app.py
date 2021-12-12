@@ -24,7 +24,7 @@ import redis
 import requests
 from generator import generadorUsers
 
-r = redis.StrictRedis(host="localhost", port=6379,
+r = redis.StrictRedis(host="redis", port=6379,
                       charset="utf-8", decode_responses=True)
 app = Flask(__name__)
 
